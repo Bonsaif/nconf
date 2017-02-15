@@ -1292,9 +1292,11 @@ $fattr,$fval
 
                                     # write any other default service dependency params (e.g "notification_failure_criteria" etc)
                                     foreach my $def_srv_deps_param (keys(%{$srv->[2]})){
-                                        unless($def_srv_deps_param && %{$srv->[2]}->{$def_srv_deps_param}){next}
+                                        # unless($def_srv_deps_param && %{$srv->[2]}->{$def_srv_deps_param}){next} Prozentzeichen und geschw. Klammern %{} entfernt wegen Fehlern im Apache-Log-File
+					unless($def_srv_deps_param && $srv->[2]->{$def_srv_deps_param}){next}
                                         $fattr = $def_srv_deps_param;
-                                        $fval  = %{$srv->[2]}->{$def_srv_deps_param};
+                                        # $fval  = %{$srv->[2]}->{$def_srv_deps_param}; Prozentzeichen und geschw. Klammern %{} entfernt wegen Fehlern im Apache-Log-File
+					$fval  = $srv->[2]->{$def_srv_deps_param};
                                         write FILE;
                                     }
                                     print FILE "}\n\n";
